@@ -2,9 +2,9 @@
 class Database
 {
     #Atributos
-    private static $host = ''; #HOST_NAME
-    private static $dbName = ''; #DB_NAME
-    private static $dbUser = ''; #USER_DB
+    private static $host = 'localhost'; #HOST_NAME
+    private static $dbName = 'usuariodb'; #DB_NAME
+    private static $dbUser = 'root'; #USER_DB
     private static $dbPass = ''; #DB_PASS
     private static $error;
     public function __construct()

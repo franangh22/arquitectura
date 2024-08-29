@@ -112,24 +112,39 @@ class Usuario
     }
     public function ValidEmail()
     {
-        return $this->validate('correo', 'correo', 3, 150);
-        if (!$resultado['error']) {
-            if (!filter_var($resultado['campo2'], FILTER_VALIDATE_EMAIL)) {
-                $resultado['msg'] = 'El email no tiene un formato valido';
-                $resultado['error'] = true;
-            }
-            if ($this->IsDuplicated($resultado['campo2'])) {
-                $resultado['msg'] = 'Email ya existe';
-                $resultado['error'] = true;
-            }
+        $resultado = $this->validate('correo', 'correo', 3, 150);
+        if ($resultado['error']) {
+            return $resultado;
         }
+        if (!filter_var($resultado['campo2'], FILTER_VALIDATE_EMAIL)) {
+            $resultado['msg'] = 'formato de correo no valido';
+            $resultado['error'] = true;
+            return $resultado;
+        }
+        #duplicado?
+        $sql = 'SELECT * FROM usuarios WHERE correo = :correo';
+        $params = [':correo' => $resultado['campo2']];
+        $rec = Database::getRecordsbyID($sql, $params);
+        if ($rec) {
+            $resultado['msg'] = 'correo ya existe';
+            $resultado['error'] = true;
+        }
+        return $resultado;
     }
-    private function IsDuplicated()
+    public function ValidNumber()
     {
-        $sql = "SELECT * FROM usuarios WHERE correo = '$this->correo'";
-        $resultado = Database::getRecords($sql);
-        var_dump($resultado);
+        $resultado = $this->validate('id', 'identificador', 1, 100);
+
+        if ($resultado['error']) {
+            return $resultado;
+        }
+        if (is_int($resultado['campo2'])) {
+            $resultado['msg'] = 'No es un numero';
+            $resultado['error'] = true;
+        }
+        return $resultado;
     }
+
     // private function checkvalidate($campo, $campoNombre, $array)
     // {
     //     $msg = '';
