@@ -6,6 +6,15 @@ class Usuario
     public $apellido;
     public $correo;
     public $contrasena;
+
+    public function __construct($id = null, $nombre = null, $apellido = null, $correo = null, $contrasena = null)
+    {
+        $this->id = $id;
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->correo = $correo;
+        $this->contrasena = $contrasena;
+    }
     public function getId($id)
     {
         return $this->id = $id;
@@ -42,36 +51,44 @@ class Usuario
     {
         return $this->contrasena = $contrasena;
     }
-    public function Agregar()
+    public function Agregar($nombre, $apellido, $correo, $contrasena)
     {
         $sql = "INSERT INTO usuarios (nombre,apellido,correo,contrasena) 
-        VALUES ('$this->nombre', '$this->apellido', '$this->correo', '$this->contrasena')";
-        $resultado = Database::execute($sql);
-        var_dump($resultado);
+        VALUES (:nombre,:apellido,:correo,:contrasena)";
+        $params = ['nombre' => $nombre, 'apellido' => $apellido, 'correo' => $correo, 'contrasena' => $contrasena];
+        $resultado = Database::execute($sql, $params);
+        return $resultado;
     }
-    public function Eliminar()
+    public function Eliminar($id)
     {
-        $sql = "DELETE FROM usuarios WHERE id = $this->id";
-        $resultado = Database::execute($sql);
-        var_dump($resultado);
+        $sql = "DELETE FROM usuarios WHERE id = :id";
+        $params = ['id' => $id];
+        $resultado = Database::execute($sql, $params);
+        return $resultado;
     }
-    public function Actualizar()
+    public function Actualizar($id, $nombre, $apellido, $correo, $contrasena)
     {
-        $sql = "UPDATE usuarios SET nombre='$this->nombre',apellido='$this->apellido',correo='$this->correo',contrasena='$this->contrasena' WHERE id = '$this->id'";
-        $resultado = Database::execute($sql);
-        var_dump($resultado);
+        $sql = "UPDATE usuarios SET nombre = :nombre, apellido = :apellido, correo = :correo, contrasena = :contrasena WHERE id = :id";
+        $params = ['id' => $id, 'nombre' => $nombre, 'apellido' => $apellido, 'correo' => $correo, 'contrasena' => $contrasena];
+        $resultado = Database::execute($sql, $params);
+        return $resultado;
     }
-    public function BuscarID()
+    public function BuscarID($id)
     {
-        $sql = "SELECT * FROM usuarios WHERE id = '$this->id' ";
-        $resultado = Database::getRecordsbyID($sql);
-        var_dump($resultado);
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
+        $params = ['id' => $id];
+        $resultado = Database::getRecordsbyID($sql, $params);
+        return $resultado;
     }
     public function BuscarTodos()
     {
         $sql = "SELECT * FROM usuarios";
         $resultado = Database::getRecords($sql);
-        var_dump($resultado);
+        $usuarios = [];
+        foreach ($resultado as $row) {
+            $usuarios[] = new self($row->id, $row->nombre, $row->apellido, $row->correo, $row->contrasena);
+        }
+        return $usuarios;
     }
     private function validate($campo, $campoNombre, $min, $max)
     {

@@ -1,21 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", sans-serif;
+    background-color: #cbd5e1;
+}
+
+h1 {
+    font-weight: 500;
+    font-style: italic;
+    color: #020617;
+    margin-top: 0.5em;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+
+.grid ul {
+    border: 1px dashed #44403c;
+    list-style-type: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 1px 1px 0px #44403c;
+    margin: 5px;
+    transition: 0.5s;
+}
+
+.grid ul:hover {
+    transform: scale(1.1);
+    box-shadow: 3px 3px 0px #44403c;
+}
+
+.grid ul li {
+    margin-bottom: 10px;
+}
+
+span {
+    font-weight: 500;
+    font-style: italic;
+}
+
+.pass {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+
+
+.delete {
+    background-color: #dc2626;
+    color: #fef2f2;
+    font-weight: bold;
+    padding: 5px 5px;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.5s;
+    box-shadow: 0px 1px 0px #ef4444;
+}
+
+.delete:hover {
+    background-color: #b91c1c;
+    color: #ef4444;
+    box-shadow: 0px 4px 0px #ef4444;
+}
+
+.update {
+    background-color: #eab308;
+    font-weight: bold;
+    color: #fefce8;
+    padding: 5px 5px;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.5s;
+    box-shadow: 0px 1px 0px #facc15;
+}
+
+.update:hover {
+    background-color: #ca8a04;
+    color: #a16207;
+    box-shadow: 0px 4px 0px #facc15;
+}
+
+.add {
+    background-color: #22c55e;
+    font-weight: bold;
+    color: #f0fdf4;
+    padding: 5px 5px;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.5s;
+    box-shadow: 0px 1px 0px #4ade80;
+}
+
+.add:hover {
+    background-color: #15803d;
+    color: #22c55e;
+    box-shadow: 0px 4px 0px #4ade80;
+}
+
+.add-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: transparent;
+}
+
+.upd-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: transparent;
+}
+
+.cerrar {
+    color: #1e3a8a;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: #dbeafe;
+}
+
+.cerrar:hover,
+.cerrar:focus {
+    color: #3854a1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.close {
+    color: #1e3a8a;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: #dbeafe;
+}
+
+.close:hover,
+.close:focus {
+    color: #3854a1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.flex-content {
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+}
+
+form,
+input,
+h2,
+.btnAdd {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    background-color: #dbeafe;
+    color: #1e3a8a;
+}
+
+.btnAdd {
+    background-color: #3b82f6;
+    font-weight: bold;
+    color: #dbeafe;
+    padding: 5px 5px;
+    border-radius: 12px;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.5s;
+    box-shadow: 0px 1px 0px #3b82f6;
+    border: none;
+    margin: 5px;
+}
+
+input {
+    padding: 5px 5px;
+    border-radius: 0.25em;
+    border: 1px solid #3b82f6;
+    color: #1e3a8a;
+}
+
+.btnAdd:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0px 4px 0px #3b82f6;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 12vh;
-}
-
-form>input {
-    margin: 5px;
+    border-radius: 15px;
+    border: 1px solid #93c4fdbb;
+    box-shadow: 1px 1px 0px #93c4fdbb;
 }
 
 .msg_error {
